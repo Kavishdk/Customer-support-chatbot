@@ -163,8 +163,7 @@ const App: React.FC = () => {
             </svg>
           </div>
           <div>
-            <h1 className="text-xl font-bold text-white tracking-tight">Gemini RAG</h1>
-            <p className="text-xs text-gray-400 font-medium hidden sm:block">MongoDB Vector Search</p>
+            <h1 className="text-xl font-bold text-white tracking-tight">Customer Support Chatbot</h1>
           </div>
         </div>
 
