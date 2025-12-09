@@ -89,10 +89,18 @@ const App: React.FC = () => {
 
     try {
       // 2. Call the RAG Backend
+      const historyPayload = messages.map(m => ({
+        role: m.role,
+        content: m.content
+      })).filter(m => m.role !== 'system'); // Exclude system error messages
+
       const response = await fetch(`${API_URL}/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: queryText }),
+        body: JSON.stringify({
+          query: queryText,
+          history: historyPayload
+        }),
       });
 
       if (!response.ok) {

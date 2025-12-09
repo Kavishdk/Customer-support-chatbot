@@ -83,7 +83,7 @@ app.post('/api/ingest-docs', async (req, res) => {
  */
 app.post('/api/chat', async (req, res) => {
   try {
-    const { query } = req.body;
+    const { query, history } = req.body;
     if (!query) {
       res.status(400).json({ error: "Query is required" });
       return;
@@ -116,8 +116,11 @@ app.post('/api/chat', async (req, res) => {
     // 3. Extract just the text content from the search results
     const contextTexts = results.map((doc: any) => doc.content);
 
+    // Validate/Filter History (Limit to last 10 messages to avoid token overflow)
+    const validHistory = Array.isArray(history) ? history.slice(-10) : [];
+
     // 4. Ask Gemini to generate an answer based on this context
-    const answer = await generateRAGResponse(query, contextTexts);
+    const answer = await generateRAGResponse(query, contextTexts, validHistory);
 
     res.json({
       answer,
