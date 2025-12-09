@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { Message, LoadingState, ChatResponse } from './types';
 import { ChatMessage } from './components/ChatMessage';
-import { IngestButton } from './components/IngestButton';
-import { ClearHistoryButton } from './components/ClearHistoryButton';
 import { ThinkingBubble } from './components/ThinkingBubble';
 import { SearchInput } from './components/SearchInput';
 
@@ -133,38 +131,6 @@ const App: React.FC = () => {
     }
   }, [status]);
 
-  /**
-   * Action: Ingest Knowledge Base
-   * Triggers the backend to wipe and re-seed the vector database.
-   */
-  const handleIngest = async () => {
-    if (status !== LoadingState.IDLE) return;
-
-    setStatus(LoadingState.INGESTING);
-    try {
-      const response = await fetch(`${API_URL}/ingest-docs`, { method: 'POST' });
-      if (!response.ok) throw new Error('Ingestion failed');
-
-      const successMsg: Message = {
-        id: Date.now().toString(),
-        role: 'system',
-        content: 'Knowledge base successfully updated with fresh FAQ documents.',
-        timestamp: Date.now(),
-      };
-      setMessages((prev) => [...prev, successMsg]);
-    } catch (error) {
-      const errorMsg: Message = {
-        id: Date.now().toString(),
-        role: 'system',
-        content: 'Error: Failed to ingest documents. Check server logs.',
-        timestamp: Date.now(),
-      };
-      setMessages((prev) => [...prev, errorMsg]);
-    } finally {
-      setStatus(LoadingState.IDLE);
-    }
-  };
-
   // Auto-send welcome query on load
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout>;
@@ -178,18 +144,6 @@ const App: React.FC = () => {
       if (timeoutId) clearTimeout(timeoutId);
     };
   }, [handleQuery]);
-
-  const handleClearChat = () => {
-    setMessages([
-      {
-        id: Date.now().toString(),
-        role: 'assistant',
-        content: 'Conversation history cleared.',
-        timestamp: Date.now(),
-      },
-    ]);
-    setSearchTerm('');
-  };
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -216,9 +170,6 @@ const App: React.FC = () => {
 
         <div className="flex items-center gap-3 w-full md:w-auto justify-end">
           <SearchInput value={searchTerm} onChange={setSearchTerm} />
-          <div className="h-6 w-px bg-gray-700 mx-1 hidden sm:block"></div>
-          <ClearHistoryButton onClear={handleClearChat} disabled={status !== LoadingState.IDLE} />
-          <IngestButton onIngest={handleIngest} status={status} />
         </div>
       </header>
 
