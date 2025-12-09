@@ -7,14 +7,16 @@ import mongoose from 'mongoose';
  * 
  * Index Definition JSON for Atlas:
  * {
- *   "fields": [
- *     {
- *       "numDimensions": 768,
- *       "path": "embedding",
- *       "similarity": "cosine",
- *       "type": "vector"
+ *   "mappings": {
+ *     "dynamic": true,
+ *     "fields": {
+ *       "embedding": {
+ *         "type": "knnVector",
+ *         "dimensions": 768,
+ *         "similarity": "cosine"
+ *       }
  *     }
- *   ]
+ *   }
  * }
  */
 const FAQSchema = new mongoose.Schema({

@@ -63,14 +63,16 @@ This is the most important part! For the AI to search your data, MongoDB needs a
 7.  Paste this **exact** configuration and hit Create:
     ```json
     {
-      "fields": [
-        {
-          "numDimensions": 768,
-          "path": "embedding",
-          "similarity": "cosine",
-          "type": "vector"
+      "mappings": {
+        "dynamic": true,
+        "fields": {
+          "embedding": {
+            "type": "knnVector",
+            "dimensions": 768,
+            "similarity": "cosine"
+          }
         }
-      ]
+      }
     }
     ```
     *Why 768? That's the specific "size" of the embeddings our AI model uses!*
