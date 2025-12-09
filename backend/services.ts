@@ -58,6 +58,7 @@ INSTRUCTIONS:
 3. If the answer is not in the context, politely state that you cannot find that information in the current documentation.
 4. Keep the tone professional but warm.
 5. Do not invent information (hallucinate).
+6. Do NOT use markdown bolding (e.g., **text**) in your response. Keep text plain and clean.
 
 CONTEXT (The following information is true):
 ${contextBlock}
