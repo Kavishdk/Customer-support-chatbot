@@ -50,11 +50,11 @@ We've split the project into two parts: the **Backend** (the brain) and the **Fr
 
 ### Step 2: Prepare the Face (Frontend)
 
-1.  Open a **new** terminal window and go to the main project folder:
+1.  Open a **new** terminal window and go to the frontend folder:
     ```bash
+    cd frontend
     npm install
     ```
-    *(Note: The `package.json` for the frontend is in the root directory)*
 
 ---
 
@@ -100,7 +100,7 @@ npm run dev
 
 **Terminal 2 (Frontend):**
 ```bash
-# In the root folder
+cd frontend
 npm run dev
 ```
 
