@@ -8,6 +8,14 @@ It helps you avoid generic AI hallucinations by grounding every answer in your a
 
 ---
 
+## 🏗️ System Architecture
+
+![Architecture Diagram](./architecture_diagram.png)
+
+This diagram illustrates how the **React Frontend**, **Node.js Backend**, and external services (**MongoDB** & **Google Gemini**) interact to process your queries.
+
+---
+
 ## 🛠️ What You Need to Run This
 
 Before we jump in, make sure you have these three things ready:
