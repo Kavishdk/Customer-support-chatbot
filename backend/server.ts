@@ -12,6 +12,10 @@ app.use(express.json());
 
 app.use('/api', apiRouter);
 
+app.get('/', (req, res) => {
+  res.json({ status: 'ok', service: 'Cimba Support Bot API' });
+});
+
 connectDatabase().then(() => {
   app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
