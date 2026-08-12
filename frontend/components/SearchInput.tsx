@@ -7,10 +7,10 @@ interface SearchInputProps {
 
 export const SearchInput: React.FC<SearchInputProps> = ({ value, onChange }) => {
   return (
-    <div className="relative w-full max-w-[200px] md:max-w-xs transition-all duration-300">
-      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+    <div className="relative w-full max-w-[240px] md:max-w-xs transition-all">
+      <div className="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-zinc-500">
         <svg 
-          className={`h-4 w-4 ${value ? 'text-blue-400' : 'text-gray-500'}`} 
+          className="h-3.5 w-3.5" 
           xmlns="http://www.w3.org/2000/svg" 
           viewBox="0 0 20 20" 
           fill="currentColor"
@@ -22,15 +22,16 @@ export const SearchInput: React.FC<SearchInputProps> = ({ value, onChange }) => 
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="block w-full pl-10 pr-3 py-2 border border-gray-700 rounded-lg leading-5 bg-gray-800 text-gray-300 placeholder-gray-500 focus:outline-none focus:bg-gray-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 sm:text-sm transition-colors duration-200"
-        placeholder="Search history..."
+        className="block w-full pl-8 pr-7 py-1.5 text-xs bg-zinc-900/90 text-zinc-200 placeholder-zinc-500 border border-zinc-800 rounded-md focus:outline-none focus:border-zinc-600 focus:ring-1 focus:ring-zinc-600 transition-colors"
+        placeholder="Filter messages..."
       />
       {value && (
         <button
           onClick={() => onChange('')}
-          className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-300"
+          className="absolute inset-y-0 right-0 pr-2 flex items-center text-zinc-500 hover:text-zinc-300"
+          title="Clear search"
         >
-          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
