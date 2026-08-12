@@ -1,6 +1,13 @@
 import { ChatResponse, Message } from '../types';
 
-const API_BASE = (import.meta as unknown as { env: { VITE_API_BASE_URL?: string } }).env?.VITE_API_BASE_URL || '/api';
+const getApiUrl = (endpoint: string): string => {
+  const baseUrl = (import.meta as unknown as { env: { VITE_API_BASE_URL?: string } }).env?.VITE_API_BASE_URL || '';
+  if (baseUrl) {
+    const cleanBase = baseUrl.endsWith('/api') ? baseUrl : `${baseUrl}/api`;
+    return `${cleanBase}${endpoint}`;
+  }
+  return `/api${endpoint}`;
+};
 
 export const sendChatMessage = async (
   query: string,
@@ -13,7 +20,7 @@ export const sendChatMessage = async (
       content: m.content,
     }));
 
-  const response = await fetch(`${API_BASE}/chat`, {
+  const response = await fetch(getApiUrl('/chat'), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -32,7 +39,7 @@ export const sendChatMessage = async (
 };
 
 export const syncKnowledgeBase = async (): Promise<{ count: number }> => {
-  const response = await fetch(`${API_BASE}/ingest-docs`, {
+  const response = await fetch(getApiUrl('/ingest-docs'), {
     method: 'POST',
   });
 
